@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import FoodDetail from "../views/FoodDetail.vue";
+import KeranjangView from "../views/KeranjangView.vue";
+import PesanSuccess from "../views/PesanSuccess.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +16,16 @@ const router = createRouter({
       path: "/food/:id",
       name: "foodDetail",
       component: FoodDetail,
+    },
+    {
+      path: "/keranjang",
+      name: "keranjang",
+      component: KeranjangView,
+    },
+    {
+      path: "/pesan-sukses",
+      name: "pesanSukses",
+      component: PesanSuccess,
     },
     {
       path: "/foods",

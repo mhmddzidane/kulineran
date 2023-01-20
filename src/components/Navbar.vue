@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-success">
     <div class="container">
-      <a class="navbar-brand text-white fw-bold" href="#">Kulineran</a>
+      <a class="navbar-brand text-white fw-bold" href="/">Kulineran</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -29,7 +29,7 @@
             <router-link class="nav-link text-white" to="/keranjang">
               Keranjang
               <i class="bi bi-basket text-white"></i>
-              <span class="badge bg-secondary ms-2">0</span>
+              <span class="badge bg-secondary ms-2">{{ count }}</span>
             </router-link>
           </li>
         </ul>
@@ -39,8 +39,36 @@
 </template>
 
 <script>
+import axios from "axios";
+import { mapState } from "vuex";
+
 export default {
   name: "Navbar",
+
+  data() {
+    return {
+      keranjangs: [],
+    };
+  },
+  methods: {
+    setKeranjangs(data) {
+      this.keranjangs = data;
+    },
+  },
+  mounted() {
+    axios
+      .get(`http://localhost:3000/keranjangs`)
+      .then((response) => {
+        this.setKeranjangs(response.data);
+        this.$store.commit("INCREMENT_COUNT", this.keranjangs.length);
+      })
+      .catch((error) => console.log(error));
+  },
+  computed: mapState({
+    count() {
+      return this.$store.state.count;
+    },
+  }),
 };
 </script>
 
